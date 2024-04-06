@@ -1,3 +1,4 @@
+import 'package:auth_app/pages/dashboard_page.dart';
 import 'package:auth_app/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: LoginPage(),
+      home: const LoginPage(),
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/dashboard': (context) => const DashboardPage(),
+      },
     );
   }
 }

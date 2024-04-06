@@ -3,12 +3,15 @@ import 'package:auth_app/components/textfield.dart';
 import 'package:auth_app/components/button.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({Key? key});
+  const LoginPage({super.key});
 
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
+  void signInUser(BuildContext context) {
+    Navigator.pushNamed(context, '/dashboard');
+  }
 
-  void signUserIn() {}
+  void signUpUser(BuildContext context) {
+    Navigator.pushNamed(context, '/register');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +31,12 @@ class LoginPage extends StatelessWidget {
               style: TextStyle(color: Colors.black, fontSize: 20),
             ),
             const SizedBox(height: 40),
-            MyTextField(
-              controller: usernameController,
+            const MyTextField(
               hintText: 'Username',
               obscureText: false,
             ),
             const SizedBox(height: 10),
-            MyTextField(
-              controller: passwordController,
+            const MyTextField(
               hintText: 'Password',
               obscureText: true,
             ),
@@ -53,8 +54,8 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 25),
-            MyButton(
-              onTap: signUserIn,
+            MySignInButton(
+              onTap: () => signInUser(context),
             ),
             const SizedBox(height: 50),
             Row(
@@ -65,12 +66,15 @@ class LoginPage extends StatelessWidget {
                   style: TextStyle(color: Colors.grey[700]),
                 ),
                 const SizedBox(width: 4),
-                const Text(
-                  'Daftar sekarang',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
+                GestureDetector(
+                  child: const Text(
+                    'Daftar sekarang',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
+                  onTap: () => signUpUser(context),
                 ),
               ],
             )
