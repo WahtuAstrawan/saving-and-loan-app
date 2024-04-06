@@ -1,6 +1,6 @@
 # Flutter Auth App
 
-Merupakan aplikasi flutter untuk melakukan Autentikasi User. Terdiri dari Login Page, Register Page, dan Dashboard Page (Home, Profile, dan Setting Page) yang sudah saling terhubung dengan Navigator System
+Merupakan aplikasi flutter untuk melakukan Autentikasi User. Terdiri dari Login Page, Register Page, dan Dashboard Page (Home, Profile, dan Setting Page) yang sudah saling terhubung dengan Route dan Navigator System
 
 ## Oleh
 
