@@ -23,16 +23,19 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
-  final List _pages = [HomePage(), ProfilePage(), SettingsPage()];
+  final List _pages = [
+    const HomePage(),
+    const ProfilePage(),
+    const SettingsPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedPages],
       appBar: AppBar(
-        title: Center(
-            child:
-                const Text("Dashboard", style: TextStyle(color: Colors.white))),
+        title: const Center(
+            child: Text("Dashboard", style: TextStyle(color: Colors.white))),
         backgroundColor: Colors.black,
         elevation: 0,
         leading: const Icon(
@@ -54,7 +57,7 @@ class _DashboardPageState extends State<DashboardPage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPages,
         onTap: _navigateBottomBar,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Setting'),

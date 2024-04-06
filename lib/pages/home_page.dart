@@ -7,7 +7,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      body: Center(
+      body: const Center(
         child: Text(
           "Halaman Home",
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
