@@ -28,7 +28,10 @@ class LoginPage extends StatelessWidget {
             const SizedBox(height: 40),
             const Text(
               'Halaman Login',
-              style: TextStyle(color: Colors.black, fontSize: 20),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 40),
             const MyTextField(
@@ -54,9 +57,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 25),
-            MySignInButton(
-              onTap: () => signInUser(context),
-            ),
+            MyButton(onTap: () => signInUser(context), buttonText: 'Masuk'),
             const SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
