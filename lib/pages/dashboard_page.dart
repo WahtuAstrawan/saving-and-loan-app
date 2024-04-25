@@ -40,7 +40,7 @@ class _DashboardPageState extends State<DashboardPage> {
         elevation: 0,
         leading: const Icon(
           Icons.beach_access,
-          color: Colors.white,
+          color: Colors.black,
           size: 35,
         ),
         automaticallyImplyLeading: false,
