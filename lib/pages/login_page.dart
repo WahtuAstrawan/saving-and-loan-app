@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:auth_app/components/textfield.dart';
 import 'package:auth_app/components/button.dart';
+import 'package:get_storage/get_storage.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class LoginPage extends StatefulWidget {
+  LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final myStorage = GetStorage();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   void signInUser(BuildContext context) {
     Navigator.pushNamed(context, '/dashboard');
@@ -34,12 +44,14 @@ class LoginPage extends StatelessWidget {
                   fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 40),
-            const MyTextField(
+            MyTextField(
+              controller: usernameController,
               hintText: 'Username',
               obscureText: false,
             ),
             const SizedBox(height: 10),
-            const MyTextField(
+            MyTextField(
+              controller: passwordController,
               hintText: 'Password',
               obscureText: true,
             ),
