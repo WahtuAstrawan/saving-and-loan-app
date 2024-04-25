@@ -2,8 +2,10 @@ import 'package:auth_app/pages/dashboard_page.dart';
 import 'package:auth_app/pages/login_page.dart';
 import 'package:auth_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const LoginPage(),
+      home: LoginPage(),
       routes: {
         '/login': (context) => LoginPage(),
         '/dashboard': (context) => DashboardPage(),
