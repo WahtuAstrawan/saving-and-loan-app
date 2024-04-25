@@ -1,6 +1,6 @@
-# Flutter Auth App
+# Savings And Loan App
 
-This is a flutter application for authenticating users. Consists of Login Page, Register Page, and Dashboard Page (Home, Profile, and Settings Page) which are interconnected with the Route and Navigator System
+This is a flutter application (On Construct)
 
 ## By
 
