@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
 
       emailController.clear();
       passwordController.clear();
-      Navigator.pushNamed(context, '/dashboard');
+      Navigator.pushReplacementNamed(context, '/dashboard');
       return;
     } on DioException catch (e) {
       if (e.response != null && e.response!.statusCode! < 500) {
