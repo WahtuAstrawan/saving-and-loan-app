@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:auth_app/components/textfield.dart';
 import 'package:auth_app/components/button.dart';
+import 'package:auth_app/components/show_alert_dialog.dart';
+import 'package:dio/dio.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,12 +14,53 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final myStorage = GetStorage();
-  final TextEditingController usernameController = TextEditingController();
+  final localStorage = GetStorage();
+  final dio = Dio();
+  final baseUrl = 'https://mobileapis.manpits.xyz/api';
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void signInUser(BuildContext context) {
-    Navigator.pushNamed(context, '/dashboard');
+  void signInUser(BuildContext context) async {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      showAlertDialog(context, "Error", "Harap mengisi semua kolom data");
+      return;
+    }
+
+    final String email = emailController.text;
+
+    if (!EmailValidator.validate(email)) {
+      showAlertDialog(
+          context, "Error", "Format email yang Anda masukkan salah");
+      return;
+    }
+
+    try {
+      final response = await dio.post('$baseUrl/login', data: {
+        'email': emailController.text,
+        'password': passwordController.text
+      });
+
+      if (!response.data['success']) {
+        showAlertDialog(
+            context, "Error", "Terjadi kesalahan saat login akun, coba ulang");
+        return;
+      }
+
+      localStorage.write('token', response.data['data']['token']);
+
+      emailController.clear();
+      passwordController.clear();
+      Navigator.pushNamed(context, '/dashboard');
+      return;
+    } on DioException catch (e) {
+      if (e.response != null && e.response!.statusCode! < 500) {
+        showAlertDialog(
+            context, "Error", "Email atau Password yang Anda masukkan salah");
+      } else {
+        showAlertDialog(context, "Error", "Internal Server Error");
+      }
+      return;
+    }
   }
 
   void signUpUser(BuildContext context) {
@@ -45,8 +89,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 40),
             MyTextField(
-              controller: usernameController,
-              hintText: 'Username',
+              controller: emailController,
+              hintText: 'Email',
               obscureText: false,
             ),
             const SizedBox(height: 10),
