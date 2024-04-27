@@ -14,6 +14,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final dio = Dio();
+  final baseUrl = 'https://mobileapis.manpits.xyz/api';
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -25,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
         emailController.text.isEmpty ||
         passwordController.text.isEmpty ||
         confirmPasswordController.text.isEmpty) {
-      showAlertDialog(context, "Error", "Harap mengisi semua kolom");
+      showAlertDialog(context, "Error", "Harap mengisi semua kolom data");
       return;
     }
 
@@ -51,8 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
     }
 
     try {
-      final response =
-          await dio.post('https://mobileapis.manpits.xyz/api/register', data: {
+      final response = await dio.post('$baseUrl/register', data: {
         'name': nameController.text,
         'email': emailController.text,
         'password': passwordController.text
@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     } on DioException catch (e) {
       if (e.response != null && e.response!.statusCode! < 500) {
-        String errorMessage = "Internal Server Error";
+        String errorMessage = "";
         if (e.response!.data != null && e.response!.data['message'] != null) {
           var message = e.response!.data['message'];
           if (message is Map && message.isNotEmpty) {
