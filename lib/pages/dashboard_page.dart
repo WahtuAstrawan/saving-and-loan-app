@@ -1,7 +1,11 @@
 import 'package:auth_app/pages/profile_page.dart';
 import 'package:auth_app/pages/settings_page.dart';
 import 'package:auth_app/pages/home_page.dart';
+import 'package:auth_app/components/show_confirm_dialog.dart';
+import 'package:auth_app/components/show_alert_dialog.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 
 class DashboardPage extends StatefulWidget {
   DashboardPage({super.key});
@@ -11,8 +15,41 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  final localStorage = GetStorage();
+  final dio = Dio();
+  final baseUrl = 'https://mobileapis.manpits.xyz/api';
+
   void logoutUser(BuildContext context) {
-    Navigator.pushNamed(context, '/login');
+    showConfirmDialog(context, "Warning", "Apakah Anda yakin ingin logout?",
+        () async {
+      try {
+        final response = await dio.get(
+          '$baseUrl/logout',
+          options: Options(
+            headers: {'Authorization': 'Bearer ${localStorage.read('token')}'},
+          ),
+        );
+
+        if (!response.data['success']) {
+          showAlertDialog(context, "Error",
+              "Terjadi kesalahan saat logout akun, coba ulang");
+          return;
+        }
+
+        localStorage.remove('token');
+        Navigator.pushReplacementNamed(context, '/login');
+        return;
+      } on DioException catch (e) {
+        if (e.response != null && e.response!.statusCode! < 500) {
+          showAlertDialog(context, "Error",
+              "Terjadi kesalahan saat logout akun, coba ulang");
+        } else {
+          showAlertDialog(context, "Error", "Internal Server Error");
+        }
+        return;
+      }
+    });
+    return;
   }
 
   int _selectedPages = 0;
@@ -41,7 +78,7 @@ class _DashboardPageState extends State<DashboardPage> {
         leading: const Icon(
           Icons.beach_access,
           color: Colors.black,
-          size: 35,
+          size: 25,
         ),
         automaticallyImplyLeading: false,
         actions: [
@@ -50,7 +87,7 @@ class _DashboardPageState extends State<DashboardPage> {
               icon: const Icon(
                 Icons.logout,
                 color: Colors.white,
-                size: 35,
+                size: 25,
               ))
         ],
       ),
