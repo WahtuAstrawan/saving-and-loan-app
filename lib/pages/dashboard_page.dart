@@ -32,17 +32,20 @@ class _DashboardPageState extends State<DashboardPage> {
 
         if (!response.data['success']) {
           showAlertDialog(context, "Error",
-              "Terjadi kesalahan saat logout akun, coba ulang");
+              "Terjadi kesalahan saat melakukan logout, coba ulang");
           return;
         }
 
-        localStorage.remove('token');
+        localStorage.erase();
         Navigator.pushReplacementNamed(context, '/login');
         return;
       } on DioException catch (e) {
         if (e.response != null && e.response!.statusCode! < 500) {
           showAlertDialog(context, "Error",
-              "Terjadi kesalahan saat logout akun, coba ulang");
+              "Sesi login Anda telah habis, coba login ulang");
+          localStorage.erase();
+          await Future.delayed(const Duration(seconds: 3));
+          Navigator.pushReplacementNamed(context, '/login');
         } else {
           showAlertDialog(context, "Error", "Internal Server Error");
         }
