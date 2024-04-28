@@ -1,6 +1,6 @@
 # Savings And Loan App
 
-This is a Savings and Loan flutter application (On Construct)
+This is a Savings and Loan flutter application (under construct)
 
 Demo (currently progress):
 
