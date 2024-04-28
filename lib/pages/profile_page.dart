@@ -106,8 +106,8 @@ class _ProfilePageState extends State<ProfilePage> {
               size: 150,
             ),
             const SizedBox(height: 50),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -131,14 +131,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     localStorage.read('name') != null
                         ? localStorage.read('name').toString()
                         : "Loading...",
-                    style: TextStyle(color: Colors.black, fontSize: 14),
+                    style: const TextStyle(color: Colors.black, fontSize: 14),
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 25),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -162,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     localStorage.read('email') != null
                         ? localStorage.read('email').toString()
                         : "Loading...",
-                    style: TextStyle(color: Colors.black, fontSize: 14),
+                    style: const TextStyle(color: Colors.black, fontSize: 14),
                   ),
                 ],
               ),
