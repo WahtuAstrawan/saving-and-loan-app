@@ -10,16 +10,16 @@ void showConfirmDialog(BuildContext context, String title, String alertMessage,
             actions: [
               TextButton(
                 onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
                   onConfirm?.call();
                   Navigator.pop(context);
                 },
                 child: const Text('Confirm'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Cancel'),
               ),
             ],
           ));
