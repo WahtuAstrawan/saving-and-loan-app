@@ -12,14 +12,14 @@ void showConfirmDialog(BuildContext context, String title, String alertMessage,
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: const Text('Cancel'),
+                child: const Text('Batal'),
               ),
               TextButton(
                 onPressed: () {
                   onConfirm?.call();
                   Navigator.pop(context);
                 },
-                child: const Text('Confirm'),
+                child: const Text('Konfirmasi'),
               ),
             ],
           ));
