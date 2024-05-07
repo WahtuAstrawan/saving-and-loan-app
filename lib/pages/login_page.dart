@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auth_app/components/textfield.dart';
 import 'package:auth_app/components/button.dart';
-import 'package:auth_app/components/show_alert_dialog.dart';
-import 'package:dio/dio.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:auth_app/service/sign_in_user.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({super.key});
@@ -14,63 +11,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final localStorage = GetStorage();
-  final dio = Dio();
-  final baseUrl = 'https://mobileapis.manpits.xyz/api';
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  void signInUser(BuildContext context) async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      showAlertDialog(context, "Error", "Harap mengisi semua kolom data");
-      return;
-    }
-
-    final String email = emailController.text;
-
-    if (!EmailValidator.validate(email)) {
-      showAlertDialog(
-          context, "Error", "Format email yang Anda masukkan salah");
-      return;
-    }
-
-    try {
-      final response = await dio.post('$baseUrl/login', data: {
-        'email': emailController.text,
-        'password': passwordController.text
-      });
-
-      if (!response.data['success']) {
-        showAlertDialog(
-            context, "Error", "Terjadi kesalahan saat login akun, coba ulang");
-        return;
-      }
-
-      localStorage.write('token', response.data['data']['token']);
-
-      emailController.clear();
-      passwordController.clear();
-      Navigator.pushReplacementNamed(context, '/dashboard');
-      return;
-    } on DioException catch (e) {
-      if (e.response != null && e.response!.statusCode! < 500) {
-        showAlertDialog(
-            context, "Error", "Email atau Password yang Anda masukkan salah");
-      } else {
-        showAlertDialog(context, "Error", "Internal Server Error");
-      }
-      return;
-    }
-  }
-
-  void signUpUser(BuildContext context) {
+  void redirectRegister(BuildContext context) {
     Navigator.pushNamed(context, '/register');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -113,7 +64,10 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(height: 25),
-            MyButton(onTap: () => signInUser(context), buttonText: 'Masuk'),
+            MyButton(
+                onTap: () =>
+                    signInUser(context, emailController, passwordController),
+                buttonText: 'Masuk'),
             const SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -131,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  onTap: () => signUpUser(context),
+                  onTap: () => redirectRegister(context),
                 ),
               ],
             )
