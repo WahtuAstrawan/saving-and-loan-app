@@ -110,6 +110,9 @@ Future<void> addMember(
     formAddress.clear();
     formBirthday.clear();
     formPhoneNum.clear();
+
+    await Future.delayed(const Duration(seconds: 2));
+    Navigator.pushReplacementNamed(context, '/dashboard');
     return;
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! < 500) {
