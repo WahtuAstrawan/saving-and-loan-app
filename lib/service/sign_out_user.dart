@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
-void signOutUser(BuildContext context) {
+Future<void> signOutUser(BuildContext context) async {
   final localStorage = GetStorage();
   final dio = Dio();
   const baseUrl = 'https://mobileapis.manpits.xyz/api';

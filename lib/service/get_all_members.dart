@@ -3,25 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
-Future<void> getUserDetails(BuildContext context) async {
+Future<List<Map<String, dynamic>>> getAllMembers(BuildContext context) async {
   final localStorage = GetStorage();
   final dio = Dio();
   const baseUrl = 'https://mobileapis.manpits.xyz/api';
-
-  if (localStorage.read('name') != null || localStorage.read('email') != null) {
-    return;
-  }
+  List<Map<String, dynamic>> members = [];
 
   try {
     final response = await dio.get(
-      '$baseUrl/user',
+      '$baseUrl/anggota',
       options: Options(
         headers: {'Authorization': 'Bearer ${localStorage.read('token')}'},
       ),
     );
 
-    localStorage.write('name', response.data['data']['user']['name']);
-    localStorage.write('email', response.data['data']['user']['email']);
+    members =
+        List<Map<String, dynamic>>.from(response.data['data']['anggotas']);
+    return members;
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! == 406) {
       showAlertDialog(
@@ -35,6 +33,7 @@ Future<void> getUserDetails(BuildContext context) async {
     } else {
       showAlertDialog(context, "Error", "Internal Server Error");
     }
-    return;
   }
+
+  return members;
 }

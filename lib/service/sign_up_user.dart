@@ -3,7 +3,7 @@ import 'package:email_validator/email_validator.dart';
 import "package:auth_app/components/show_alert_dialog.dart";
 import "package:dio/dio.dart";
 
-void signUpUser(
+Future<void> signUpUser(
     BuildContext context,
     TextEditingController formName,
     TextEditingController formEmail,

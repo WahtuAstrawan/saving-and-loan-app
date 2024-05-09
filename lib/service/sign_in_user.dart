@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:get_storage/get_storage.dart';
 
-void signInUser(BuildContext context, TextEditingController formEmail,
+Future<void> signInUser(BuildContext context, TextEditingController formEmail,
     TextEditingController formPassword) async {
   final localStorage = GetStorage();
   final dio = Dio();
