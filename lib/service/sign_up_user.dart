@@ -24,6 +24,7 @@ Future<void> signUpUser(
 
   if (!EmailValidator.validate(email)) {
     showAlertDialog(context, "Error", "Format email yang Anda masukkan salah");
+    formEmail.clear();
     return;
   }
 
