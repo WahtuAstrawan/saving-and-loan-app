@@ -1,10 +1,6 @@
 # Savings And Loan App
 
-This is a Savings and Loan flutter application (under construct)
-
-Demo (currently progress):
-
-[https://github.com/WahtuAstrawan/saving-and-loan-app/assets/112930889/0929fc75-340d-4504-b504-6196d86295bf](https://github.com/WahtuAstrawan/saving-and-loan-app/assets/112930889/0929fc75-340d-4504-b504-6196d86295bf)
+This is a Savings and Loan flutter application that can perform auth and create, read, update, delete action with API integration
 
 ## By
 
