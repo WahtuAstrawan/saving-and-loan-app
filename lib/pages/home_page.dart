@@ -1,3 +1,4 @@
+import 'package:auth_app/components/show_info_member.dart';
 import 'package:auth_app/service/get_all_members.dart';
 import 'package:flutter/material.dart';
 
@@ -15,10 +16,10 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _fetchData();
+    _fetchMembers();
   }
 
-  Future<void> _fetchData() async {
+  Future<void> _fetchMembers() async {
     setState(() {
       _isLoading = true;
     });
@@ -38,7 +39,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       body: Center(
         child: _isLoading
-            ? CircularProgressIndicator()
+            ? const CircularProgressIndicator()
             : Column(
                 children: [
                   Expanded(
@@ -48,11 +49,44 @@ class _HomePageState extends State<HomePage> {
                         return ListView.builder(
                           itemCount: members.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              height: 50,
-                              color: Colors.redAccent,
-                              child: Center(
-                                child: Text('Name: ${members[index]['nama']}'),
+                            final member = members[index];
+                            return InkWell(
+                              onTap: () {
+                                showInfoMember(context, "Info", member);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(2.5),
+                                color: Colors.grey[100],
+                                height: 65.0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('${member['nama']}'),
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        IconButton(
+                                          icon: Icon(Icons.edit),
+                                          onPressed: () {
+                                            print(
+                                                'Edit button pressed for ${member['nama']}');
+                                          },
+                                        ),
+                                        IconButton(
+                                          icon: Icon(Icons.delete),
+                                          onPressed: () {
+                                            print(
+                                                'Delete button pressed for ${member['nama']}');
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -60,6 +94,27 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ),
+                  Positioned(
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          FloatingActionButton(
+                            onPressed: () {
+                              print('Add button pressed!');
+                            },
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                            backgroundColor: Colors.grey[700],
+                            elevation: 0.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
                 ],
               ),
       ),
