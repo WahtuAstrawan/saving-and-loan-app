@@ -1,8 +1,6 @@
 import 'package:auth_app/pages/profile_page.dart';
 import 'package:auth_app/pages/home_page.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 
 class DashboardPage extends StatefulWidget {
   DashboardPage({super.key});
@@ -12,17 +10,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  final localStorage = GetStorage();
-  final dio = Dio();
-  final baseUrl = 'https://mobileapis.manpits.xyz/api';
-
   int _selectedPages = 0;
-  String _selectedPagesName = "Home";
+  String _selectedPagesName = "Members";
 
   void _navigateBottomBar(int index) {
     setState(() {
       _selectedPages = index;
-      _selectedPagesName = index == 0 ? "Home" : "Profile";
+      _selectedPagesName = index == 0 ? "Members" : "Profile";
     });
   }
 
@@ -44,7 +38,7 @@ class _DashboardPageState extends State<DashboardPage> {
         currentIndex: _selectedPages,
         onTap: _navigateBottomBar,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Members'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
         ],
       ),
