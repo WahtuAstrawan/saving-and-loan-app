@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           FloatingActionButton(
                             onPressed: () {
-                              print('Add button pressed!');
+                              Navigator.pushNamed(context, '/member/add');
                             },
                             child: Icon(
                               Icons.add,

@@ -1,3 +1,4 @@
+import 'package:auth_app/pages/add_member_page.dart';
 import 'package:auth_app/pages/dashboard_page.dart';
 import 'package:auth_app/pages/login_page.dart';
 import 'package:auth_app/pages/register_page.dart';
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         '/dashboard': (context) => DashboardPage(),
-        '/register': (context) => RegisterPage()
+        '/register': (context) => RegisterPage(),
+        '/member/add': (context) => AddMemberPage()
       },
     );
   }
