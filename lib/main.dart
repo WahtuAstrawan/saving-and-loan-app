@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => DashboardPage(),
         '/register': (context) => RegisterPage(),
         '/member/add': (context) => AddMemberPage()
+        // '/member/edit/' : (context) => EditMemberPage()
       },
     );
   }
