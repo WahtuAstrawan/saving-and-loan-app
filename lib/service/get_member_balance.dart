@@ -1,25 +1,22 @@
-import 'package:auth_app/components/show_alert_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:auth_app/components/show_alert_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
-Future<List<Map<String, dynamic>>> getAllMembers(BuildContext context) async {
+Future<String> getMemberBalance(BuildContext context, String memberId) async {
   final localStorage = GetStorage();
   final dio = Dio();
   const baseUrl = 'https://mobileapis.manpits.xyz/api';
-  List<Map<String, dynamic>> members = [];
 
   try {
     final response = await dio.get(
-      '$baseUrl/anggota',
+      '$baseUrl/saldo/$memberId',
       options: Options(
         headers: {'Authorization': 'Bearer ${localStorage.read('token')}'},
       ),
     );
 
-    members =
-        List<Map<String, dynamic>>.from(response.data['data']['anggotas']);
-    return members;
+    return response.data['data']['saldo'].toString();
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! == 406) {
       showAlertDialog(
@@ -29,11 +26,15 @@ Future<List<Map<String, dynamic>>> getAllMembers(BuildContext context) async {
       Navigator.pushReplacementNamed(context, '/login');
     } else if (e.response!.statusCode! < 500) {
       showAlertDialog(context, "Error",
-          "Terjadi kesalahan saat mendapatkan data members, coba ulang");
+          "Terjadi kesalahan saat mendapatkan data saldo member, coba ulang");
     } else {
       showAlertDialog(context, "Error", "Internal Server Error");
     }
+    return "";
   }
+}
 
-  return members;
+void showBalanceDialog(BuildContext context, String memberId) async {
+  String balance = await getMemberBalance(context, memberId);
+  showAlertDialog(context, "Info Saldo", 'Rp. $balance');
 }

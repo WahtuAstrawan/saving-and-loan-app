@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
-Future<List<Map<String, dynamic>>> getAllMembers(BuildContext context) async {
+Future<List<Map<String, dynamic>>> getTrxType(BuildContext context) async {
   final localStorage = GetStorage();
   final dio = Dio();
   const baseUrl = 'https://mobileapis.manpits.xyz/api';
-  List<Map<String, dynamic>> members = [];
+  List<Map<String, dynamic>> trxType = [];
 
   try {
     final response = await dio.get(
-      '$baseUrl/anggota',
+      '$baseUrl/jenistransaksi',
       options: Options(
         headers: {'Authorization': 'Bearer ${localStorage.read('token')}'},
       ),
     );
 
-    members =
-        List<Map<String, dynamic>>.from(response.data['data']['anggotas']);
-    return members;
+    trxType = List<Map<String, dynamic>>.from(
+        response.data['data']['jenistransaksi']);
+    return trxType;
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! == 406) {
       showAlertDialog(
@@ -29,11 +29,11 @@ Future<List<Map<String, dynamic>>> getAllMembers(BuildContext context) async {
       Navigator.pushReplacementNamed(context, '/login');
     } else if (e.response!.statusCode! < 500) {
       showAlertDialog(context, "Error",
-          "Terjadi kesalahan saat mendapatkan data members, coba ulang");
+          "Terjadi kesalahan saat mendapatkan data jenis transaksi, coba ulang");
     } else {
       showAlertDialog(context, "Error", "Internal Server Error");
     }
   }
 
-  return members;
+  return trxType;
 }

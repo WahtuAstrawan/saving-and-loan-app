@@ -7,11 +7,11 @@ import 'package:get_storage/get_storage.dart';
 
 void main() async {
   await GetStorage.init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -25,10 +25,13 @@ class MyApp extends StatelessWidget {
       home: LoginPage(),
       routes: {
         '/login': (context) => LoginPage(),
-        '/dashboard': (context) => DashboardPage(),
+        '/dashboard': (context) => const DashboardPage(),
         '/register': (context) => RegisterPage(),
-        '/member/add': (context) => AddMemberPage()
-        // '/member/edit/' : (context) => EditMemberPage()
+        '/member/add': (context) => const AddMemberPage()
+        // '/member/edit/': (context) => const EditMemberPage(Map < String, dynamic > memberData)
+        // '/member/transaction/add': (context) =>
+        //     AddMemberTrxPage(memberId: memberId)
+        // '/member/transaction/history': (context) => const TrxHistoryPage(memberId: memberId)
       },
     );
   }
