@@ -34,8 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   'Halaman Register',
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    fontSize: 20
                   ),
                 ),
                 const SizedBox(height: 40),

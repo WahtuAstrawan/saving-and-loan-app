@@ -32,13 +32,20 @@ class _LoginPageState extends State<LoginPage> {
             ),
             const SizedBox(height: 40),
             const Text(
+              'Saving And Loan App',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            const Text(
               'Halaman Login',
               style: TextStyle(
                   color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 20),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 50),
             MyTextField(
               controller: emailController,
               hintText: 'Email',
