@@ -1,6 +1,5 @@
 import 'package:auth_app/pages/add_member_trx_page.dart';
 import 'package:auth_app/pages/trx_history_page.dart';
-import 'package:auth_app/service/get_member_balance.dart';
 import 'package:auth_app/service/get_all_members.dart';
 import "package:flutter/material.dart";
 
@@ -91,14 +90,6 @@ class _SavingsPageState extends State<SavingsPage> {
                                                         memberId: member['id']
                                                             .toString(),
                                                       )));
-                                        },
-                                      ),
-                                      IconButton(
-                                        icon: const Icon(
-                                            Icons.account_balance_wallet),
-                                        onPressed: () {
-                                          showBalanceDialog(
-                                              context, member['id'].toString());
                                         },
                                       ),
                                     ],

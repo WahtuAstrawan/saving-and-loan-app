@@ -33,8 +33,3 @@ Future<String> getMemberBalance(BuildContext context, String memberId) async {
     return "";
   }
 }
-
-void showBalanceDialog(BuildContext context, String memberId) async {
-  String balance = await getMemberBalance(context, memberId);
-  showAlertDialog(context, "Info Saldo", 'Rp. $balance');
-}
