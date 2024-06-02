@@ -2,6 +2,7 @@ import 'package:auth_app/components/button.dart';
 import 'package:auth_app/components/textfield.dart';
 import 'package:auth_app/service/add_member.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AddMemberPage extends StatefulWidget {
   const AddMemberPage({super.key});
@@ -16,6 +17,21 @@ class _AddMemberPageState extends State<AddMemberPage> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController birthdayController = TextEditingController();
   final TextEditingController phoneNumController = TextEditingController();
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime initialDate = DateTime.tryParse(birthdayController.text) ?? DateTime.now();
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != initialDate) {
+      setState(() {
+        birthdayController.text = DateFormat('yyyy-MM-dd').format(picked);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,10 +73,28 @@ class _AddMemberPageState extends State<AddMemberPage> {
                   obscureText: false,
                 ),
                 const SizedBox(height: 10),
-                MyTextField(
-                  controller: birthdayController,
-                  hintText: 'Tanggal Lahir (YYYY-MM-DD)',
-                  obscureText: false,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: TextField(
+                    controller: birthdayController,
+                    decoration: InputDecoration(
+                      labelText: 'Tanggal Lahir (YYYY-MM-DD)',
+                      border: OutlineInputBorder(),
+                      enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey.shade400),
+                      ),
+                      fillColor: Colors.grey.shade200,
+                      filled: true,
+                      hintStyle: TextStyle(color: Colors.grey[500]),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.calendar_today),
+                        onPressed: () => _selectDate(context),
+                      ),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 MyTextField(
