@@ -1,3 +1,4 @@
+import "package:auth_app/pages/trx_history_page.dart";
 import 'package:flutter/material.dart';
 import "package:auth_app/components/show_alert_dialog.dart";
 import "package:dio/dio.dart";
@@ -43,8 +44,15 @@ Future<void> addMemberTrx(BuildContext context, String memberId, String? trxId,
 
     formTrxNominal.clear();
 
-    await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacementNamed(context, '/dashboard');
+    await Future.delayed(const Duration(seconds: 3));
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => TrxHistoryPage(
+                  memberId: memberId,
+                )));
     return;
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! < 500) {

@@ -1,7 +1,9 @@
+import 'package:auth_app/pages/add_member_trx_page.dart';
 import 'package:auth_app/service/get_all_trx_member.dart';
 import 'package:auth_app/components/show_info_trx_member.dart';
 import 'package:auth_app/service/get_member_balance.dart';
 import 'package:auth_app/service/get_trx_type.dart';
+import 'package:auth_app/utils/format_currency.dart';
 import 'package:flutter/material.dart';
 
 class TrxHistoryPage extends StatefulWidget {
@@ -31,7 +33,7 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
     setState(() {
       _balance = balance;
     });
-  }  
+  }
 
   Future<void> _fetchTrxType() async {
     final trxType = await getTrxType(context);
@@ -66,8 +68,20 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Histori Transaksi'),
-
+        title: const Text('Transaksi Anggota'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.addchart),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddMemberTrxPage(
+                            memberId: widget.memberId,
+                          )));
+            },
+          ),
+        ],
       ),
       body: Center(
         child: _isLoading
@@ -86,21 +100,26 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
                     return ListView.builder(
                       itemCount: trxHistories.length + 1,
                       itemBuilder: (context, index) {
-                        if(index == 0) {
+                        if (index == 0) {
                           return Container(
                             margin: const EdgeInsets.all(2.5),
-                            color: Colors.grey[200],
-                            height: 65.0,
+                            decoration: BoxDecoration(
+                                color: Colors.orange[100],
+                                border: Border.all(
+                                  color: Colors.orange,
+                                  width: 0.5,
+                                ),
+                                borderRadius: BorderRadius.circular(5.0)),
+                            height: 50.0,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Sisa Saldo: Rp. ${_balance}',
+                                    'Sisa Saldo: ${formatCurrency(int.parse(_balance))}',
                                     style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
                                     ),
                                   ),
                                 ),
@@ -110,32 +129,34 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
                         } else {
                           final trxHistory = trxHistories[index - 1];
                           return InkWell(
-                            onTap: () {
-                              showInfoTrxMember(
-                                  context,
-                                  "Detail Transaksi",
-                                  trxHistory,
-                                  _getTrxTypeName(trxHistory['trx_id']));
-                            },
                             child: Container(
                               margin: const EdgeInsets.all(2.5),
                               color: Colors.grey[100],
-                              height: 65.0,
+                              height: 75.0,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.only(
+                                            left: 10.0, top: 8.0),
                                         child: Text(_getTrxTypeName(
                                             trxHistory['trx_id'])),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.only(left: 8.0),
-                                        child:
-                                            Text('${trxHistory['trx_tanggal']}'),
+                                        padding:
+                                            const EdgeInsets.only(left: 10.0),
+                                        child: Text(
+                                            '${formatCurrency(trxHistory['trx_nominal'])}'),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 10.0),
+                                        child: Text(
+                                            '${trxHistory['trx_tanggal']}'),
                                       ),
                                     ],
                                   ),
@@ -149,7 +170,6 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
                   }
                 },
               ),
-            
       ),
     );
   }

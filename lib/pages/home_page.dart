@@ -1,4 +1,5 @@
 import 'package:auth_app/components/show_info_member.dart';
+import 'package:auth_app/pages/detail_member_page.dart';
 import 'package:auth_app/pages/edit_member_page.dart';
 import 'package:auth_app/service/delete_member.dart';
 import 'package:auth_app/service/get_all_members.dart';
@@ -54,35 +55,51 @@ class _HomePageState extends State<HomePage> {
                             final member = members[index];
                             return InkWell(
                               onTap: () {
-                                showInfoMember(context, "Info", member);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailMemberPage(
+                                            memberData: member)));
                               },
                               child: Container(
-                                margin: EdgeInsets.all(2.5),
+                                margin: const EdgeInsets.all(2.5),
                                 color: Colors.grey[100],
-                                height: 65.0,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text('${member['nama']}'),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0, top: 10.0),
+                                          child: Text(
+                                            '${member['nama']}',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: Text(
+                                              member['status_aktif'] == 1
+                                                  ? '--- Aktif ---'
+                                                  : '--- Tidak Aktif ---'),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 8.0, bottom: 10.0),
+                                          child: Text('${member['alamat']}'),
+                                        ),
+                                      ],
                                     ),
                                     const Spacer(),
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        IconButton(
-                                          icon: Icon(Icons.edit),
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        EditMemberPage(
-                                                            memberData:
-                                                                member)));
-                                          },
-                                        ),
                                         IconButton(
                                           icon: Icon(Icons.delete),
                                           onPressed: () {
