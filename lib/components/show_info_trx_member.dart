@@ -114,7 +114,7 @@ void showInfoTrxMember(BuildContext context, String title,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Rp. ${trxHistory['trx_nominal'].toString()}',
+                  '${trxHistory['trx_nominal'].toString()}',
                   style: const TextStyle(color: Colors.black, fontSize: 14),
                 ),
               ],
