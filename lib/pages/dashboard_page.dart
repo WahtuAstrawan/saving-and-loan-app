@@ -1,6 +1,5 @@
 import 'package:auth_app/pages/profile_page.dart';
 import 'package:auth_app/pages/home_page.dart';
-import 'package:auth_app/pages/savings_page.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -22,20 +21,13 @@ class _DashboardPageState extends State<DashboardPage> {
           _selectedPageName = "Members";
           break;
         case 1:
-          _selectedPageName = "Savings";
-          break;
-        case 2:
           _selectedPageName = "Profile";
           break;
       }
     });
   }
 
-  final List<Widget> _pages = [
-    HomePage(),
-    const SavingsPage(),
-    const ProfilePage()
-  ];
+  final List<Widget> _pages = [HomePage(), const ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +49,7 @@ class _DashboardPageState extends State<DashboardPage> {
         onTap: _navigateBottomBar,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Members'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance), label: 'Savings'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
         ],
       ),
     );

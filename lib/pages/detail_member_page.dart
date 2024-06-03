@@ -1,7 +1,6 @@
 import 'package:auth_app/components/button.dart';
 import 'package:auth_app/components/textfield.dart';
 import 'package:auth_app/pages/trx_history_page.dart';
-import 'package:auth_app/service/delete_member.dart';
 import 'package:auth_app/service/edit_member.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

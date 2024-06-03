@@ -1,6 +1,4 @@
-import 'package:auth_app/components/show_info_member.dart';
 import 'package:auth_app/pages/detail_member_page.dart';
-import 'package:auth_app/pages/edit_member_page.dart';
 import 'package:auth_app/service/delete_member.dart';
 import 'package:auth_app/service/get_all_members.dart';
 import 'package:flutter/material.dart';

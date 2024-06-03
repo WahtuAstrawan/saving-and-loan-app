@@ -1,6 +1,5 @@
 import 'package:auth_app/pages/add_member_trx_page.dart';
 import 'package:auth_app/service/get_all_trx_member.dart';
-import 'package:auth_app/components/show_info_trx_member.dart';
 import 'package:auth_app/service/get_member_balance.dart';
 import 'package:auth_app/service/get_trx_type.dart';
 import 'package:auth_app/utils/format_currency.dart';

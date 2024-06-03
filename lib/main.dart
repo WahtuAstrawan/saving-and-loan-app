@@ -28,10 +28,6 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => const DashboardPage(),
         '/register': (context) => RegisterPage(),
         '/member/add': (context) => const AddMemberPage()
-        // '/member/edit/': (context) => const EditMemberPage(Map < String, dynamic > memberData)
-        // '/member/transaction/add': (context) =>
-        //     AddMemberTrxPage(memberId: memberId)
-        // '/member/transaction/history': (context) => const TrxHistoryPage(memberId: memberId)
       },
     );
   }
