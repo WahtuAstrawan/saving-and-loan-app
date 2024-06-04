@@ -27,7 +27,7 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
-  final List<Widget> _pages = [HomePage(), const ProfilePage()];
+  final List<Widget> _pages = [const HomePage(), const ProfilePage()];
 
   @override
   Widget build(BuildContext context) {

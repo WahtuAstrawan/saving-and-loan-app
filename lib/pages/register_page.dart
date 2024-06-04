@@ -4,7 +4,7 @@ import "package:flutter/material.dart";
 import 'package:auth_app/service/sign_up_user.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({super.key});
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();

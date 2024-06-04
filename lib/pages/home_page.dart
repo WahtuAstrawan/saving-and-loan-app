@@ -4,7 +4,7 @@ import 'package:auth_app/service/get_all_members.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                                               left: 8.0, top: 10.0),
                                           child: Text(
                                             '${member['nama']}',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                          icon: Icon(Icons.delete),
+                                          icon: const Icon(Icons.delete),
                                           onPressed: () {
                                             deleteMember(context,
                                                 member['nama'], member['id']);
@@ -126,12 +126,12 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               Navigator.pushNamed(context, '/member/add');
                             },
-                            child: Icon(
+                            backgroundColor: Colors.grey[700],
+                            elevation: 0.0,
+                            child: const Icon(
                               Icons.add,
                               color: Colors.white,
                             ),
-                            backgroundColor: Colors.grey[700],
-                            elevation: 0.0,
                           ),
                         ],
                       ),

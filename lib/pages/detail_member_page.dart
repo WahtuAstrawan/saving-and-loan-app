@@ -52,7 +52,7 @@ class _DetailMemberPageState extends State<DetailMemberPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        title: const Text(''),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -94,7 +94,7 @@ class _DetailMemberPageState extends State<DetailMemberPage> {
                     controller: birthdayController,
                     decoration: InputDecoration(
                       labelText: 'Tanggal Lahir (YYYY-MM-DD)',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -105,7 +105,7 @@ class _DetailMemberPageState extends State<DetailMemberPage> {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[500]),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.calendar_today),
+                        icon: const Icon(Icons.calendar_today),
                         onPressed: () => _selectDate(context),
                       ),
                     ),
@@ -122,14 +122,14 @@ class _DetailMemberPageState extends State<DetailMemberPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(
                     children: [
-                      Text(
+                      const Text(
                         'Status Keaktifan',
                         style: TextStyle(fontSize: 15),
                       ),
-                      SizedBox(width: 30),
+                      const SizedBox(width: 30),
                       DropdownButton<String>(
                         value: _memberStatus,
-                        items: [
+                        items: const [
                           DropdownMenuItem<String>(
                             value: '1',
                             child: Text('Aktif'),
@@ -177,10 +177,10 @@ class _DetailMemberPageState extends State<DetailMemberPage> {
                       color: Colors.orange,
                       borderRadius: BorderRadius.circular(9),
                     ),
-                    child: Center(
+                    child: const Center(
                       child: Text(
                         'Transaksi Anggota',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

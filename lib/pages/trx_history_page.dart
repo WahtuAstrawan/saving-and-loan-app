@@ -117,7 +117,7 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
                                     'Sisa Saldo: ${formatCurrency(int.parse(_balance))}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 18,
                                     ),
                                   ),
@@ -149,7 +149,7 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
                                         padding:
                                             const EdgeInsets.only(left: 10.0),
                                         child: Text(
-                                            '${formatCurrency(trxHistory['trx_nominal'])}'),
+                                            formatCurrency(trxHistory['trx_nominal'])),
                                       ),
                                       Padding(
                                         padding:

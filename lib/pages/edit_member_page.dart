@@ -51,7 +51,7 @@ class _EditMemberPageState extends State<EditMemberPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Anggota'),
+        title: const Text('Edit Anggota'),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -93,7 +93,7 @@ class _EditMemberPageState extends State<EditMemberPage> {
                     controller: birthdayController,
                     decoration: InputDecoration(
                       labelText: 'Tanggal Lahir (YYYY-MM-DD)',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -104,7 +104,7 @@ class _EditMemberPageState extends State<EditMemberPage> {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[500]),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.calendar_today),
+                        icon: const Icon(Icons.calendar_today),
                         onPressed: () => _selectDate(context),
                       ),
                     ),
@@ -121,14 +121,14 @@ class _EditMemberPageState extends State<EditMemberPage> {
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(
                     children: [
-                      Text(
+                      const Text(
                         'Status Keaktifan',
                         style: TextStyle(fontSize: 15),
                       ),
-                      SizedBox(width: 30),
+                      const SizedBox(width: 30),
                       DropdownButton<String>(
                         value: _memberStatus,
-                        items: [
+                        items: const [
                           DropdownMenuItem<String>(
                             value: '1',
                             child: Text('Aktif'),

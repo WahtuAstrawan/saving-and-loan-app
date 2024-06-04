@@ -37,7 +37,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        title: const Text(''),
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -79,7 +79,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
                     controller: birthdayController,
                     decoration: InputDecoration(
                       labelText: 'Tanggal Lahir (YYYY-MM-DD)',
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                       enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
@@ -90,7 +90,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
                       filled: true,
                       hintStyle: TextStyle(color: Colors.grey[500]),
                       suffixIcon: IconButton(
-                        icon: Icon(Icons.calendar_today),
+                        icon: const Icon(Icons.calendar_today),
                         onPressed: () => _selectDate(context),
                       ),
                     ),
