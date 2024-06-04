@@ -13,104 +13,120 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final localStorage = GetStorage();
+  String name = "";
+  String email = "";
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    getUserDetails(context);
+    _fetchUserDetails();
+  }
+
+  Future<void> _fetchUserDetails() async {
+    setState(() => _isLoading = true);
+    try {
+      final userDetails = await getUserDetails(context);
+      name = userDetails[0];
+      email = userDetails[1];
+    } finally {
+      setState(() => _isLoading = false);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Center(
-          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            const Icon(
-              Icons.person,
-              size: 150,
-            ),
-            const SizedBox(height: 50),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Nama',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SafeArea(
+              child: Center(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.person,
+                        size: 150,
+                      ),
+                      const SizedBox(height: 50),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Nama',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Email',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              email,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 50),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CostumButton(
+                              onTap: () => signOutUser(context),
+                              buttonText: "Logout",
+                              buttonColor: Colors.black,
+                              textColor: Colors.white,
+                              padding: 20,
+                              margin: 7,
+                              textSize: 16)
+                        ],
+                      ),
+                      const SizedBox(height: 50)
+                    ]),
               ),
             ),
-            const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    localStorage.read('name') != null
-                        ? localStorage.read('name').toString()
-                        : "Loading...",
-                    style: const TextStyle(color: Colors.black, fontSize: 14),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 25),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    'Email',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 5),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    localStorage.read('email') != null
-                        ? localStorage.read('email').toString()
-                        : "Loading...",
-                    style: const TextStyle(color: Colors.black, fontSize: 14),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 50),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CostumButton(
-                    onTap: () => signOutUser(context),
-                    buttonText: "Logout",
-                    buttonColor: Colors.black,
-                    textColor: Colors.white,
-                    padding: 20,
-                    margin: 7,
-                    textSize: 16)
-              ],
-            ),
-            const SizedBox(height: 50)
-          ]),
-        ),
-      ),
     );
   }
 }

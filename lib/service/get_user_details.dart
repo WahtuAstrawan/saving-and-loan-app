@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
-Future<void> getUserDetails(BuildContext context) async {
+Future<List<String>> getUserDetails(BuildContext context) async {
   final localStorage = GetStorage();
   final dio = Dio();
   const baseUrl = 'https://mobileapis.manpits.xyz/api';
-
-  if (localStorage.read('name') != null || localStorage.read('email') != null) {
-    return;
-  }
 
   try {
     final response = await dio.get(
@@ -20,8 +16,10 @@ Future<void> getUserDetails(BuildContext context) async {
       ),
     );
 
-    localStorage.write('name', response.data['data']['user']['name']);
-    localStorage.write('email', response.data['data']['user']['email']);
+    final name = response.data['data']['user']['name'].toString();
+    final email = response.data['data']['user']['email'].toString();
+
+    return [name, email];
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! == 406) {
       showAlertDialog(
@@ -35,6 +33,6 @@ Future<void> getUserDetails(BuildContext context) async {
     } else {
       showAlertDialog(context, "Error", "Internal Server Error");
     }
-    return;
+    return [];
   }
 }
