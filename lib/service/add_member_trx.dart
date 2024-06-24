@@ -44,7 +44,7 @@ Future<void> addMemberTrx(BuildContext context, String memberId, String? trxId,
 
     formTrxNominal.clear();
 
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
     Navigator.pop(context);
     Navigator.pop(context);
     Navigator.push(
