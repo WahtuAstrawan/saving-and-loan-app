@@ -44,7 +44,7 @@ class _AddMemberTrxPageState extends State<AddMemberTrxPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Tambah Transaksi Member',
+                  'Tambah Transaksi Anggota',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,

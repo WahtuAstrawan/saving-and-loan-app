@@ -47,72 +47,83 @@ class _HomePageState extends State<HomePage> {
                     child: ValueListenableBuilder<List<Map<String, dynamic>>>(
                       valueListenable: _members,
                       builder: (context, members, _) {
-                        return ListView.builder(
-                          itemCount: members.length,
-                          itemBuilder: (context, index) {
-                            final member = members[index];
-                            return InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DetailMemberPage(
-                                            memberData: member)));
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.all(2.5),
-                                color: Colors.grey[100],
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, top: 10.0),
-                                          child: Text(
-                                            '${member['nama']}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
+                        if (members.isEmpty) {
+                          return const Center(
+                            child: Text(
+                              'Tidak ada anggota',
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.grey),
+                            ),
+                          );
+                        } else {
+                          return ListView.builder(
+                            itemCount: members.length,
+                            itemBuilder: (context, index) {
+                              final member = members[index];
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DetailMemberPage(
+                                                  memberData: member)));
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.all(2.5),
+                                  color: Colors.grey[100],
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0, top: 10.0),
+                                            child: Text(
+                                              '${member['nama']}',
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Text(
-                                              member['status_aktif'] == 1
-                                                  ? '--- Aktif ---'
-                                                  : '--- Tidak Aktif ---'),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8.0, bottom: 10.0),
-                                          child: Text('${member['alamat']}'),
-                                        ),
-                                      ],
-                                    ),
-                                    const Spacer(),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        IconButton(
-                                          icon: const Icon(Icons.delete),
-                                          onPressed: () {
-                                            deleteMember(context,
-                                                member['nama'], member['id']);
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
+                                            child: Text(
+                                                member['status_aktif'] == 1
+                                                    ? '--- Aktif ---'
+                                                    : '--- Tidak Aktif ---'),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0, bottom: 10.0),
+                                            child: Text('${member['alamat']}'),
+                                          ),
+                                        ],
+                                      ),
+                                      const Spacer(),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          IconButton(
+                                            icon: const Icon(Icons.delete),
+                                            onPressed: () {
+                                              deleteMember(context,
+                                                  member['nama'], member['id']);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
-                        );
+                              );
+                            },
+                          );
+                        }
                       },
                     ),
                   ),
