@@ -43,6 +43,16 @@ class _DashboardPageState extends State<DashboardPage> {
         backgroundColor: Colors.black,
         elevation: 0,
         automaticallyImplyLeading: false,
+        actions: _selectedPageName == "Members"
+            ? [
+                IconButton(
+                  icon: Icon(Icons.bar_chart, color: Colors.white),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/interest');
+                  },
+                ),
+              ]
+            : [],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedPageIndex,
