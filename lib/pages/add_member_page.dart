@@ -25,7 +25,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
       context: context,
       initialDate: initialDate,
       firstDate: DateTime(1900),
-      lastDate: DateTime(2101),
+      lastDate: DateTime.now(),
     );
     if (picked != null && picked != initialDate) {
       setState(() {
