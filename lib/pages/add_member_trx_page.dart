@@ -34,6 +34,7 @@ class _AddMemberTrxPageState extends State<AddMemberTrxPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
+        backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -43,14 +44,14 @@ class _AddMemberTrxPageState extends State<AddMemberTrxPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Tambah Transaksi Anggota',
+                  'Tambah Transaksi',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const SizedBox(height: 50),
+                const SizedBox(height: 80),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Row(

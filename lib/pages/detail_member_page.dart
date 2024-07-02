@@ -53,6 +53,7 @@ class _DetailMemberPageState extends State<DetailMemberPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
+        backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(

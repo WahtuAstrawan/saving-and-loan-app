@@ -1,3 +1,4 @@
+import 'package:auth_app/pages/interest_page.dart';
 import 'package:auth_app/pages/profile_page.dart';
 import 'package:auth_app/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -21,34 +22,39 @@ class _DashboardPageState extends State<DashboardPage> {
           _selectedPageName = "Members";
           break;
         case 1:
+          _selectedPageName = "Interest";
+          break;
+        case 2:
           _selectedPageName = "Profile";
           break;
       }
     });
   }
 
-  final List<Widget> _pages = [const HomePage(), const ProfilePage()];
+  final List<Widget> _pages = [
+    const HomePage(),
+    const InterestPage(),
+    const ProfilePage()
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedPageIndex],
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            _selectedPageName,
-            style: const TextStyle(color: Colors.white),
-          ),
+        title: Text(
+          _selectedPageName,
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.black,
         elevation: 0,
         automaticallyImplyLeading: false,
-        actions: _selectedPageName == "Members"
+        actions: _selectedPageName == "Interest"
             ? [
                 IconButton(
-                  icon: Icon(Icons.percent, color: Colors.white),
+                  icon: const Icon(Icons.history, color: Colors.white),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/interest');
+                    Navigator.pushNamed(context, '/interest/history');
                   },
                 ),
               ]
@@ -59,6 +65,7 @@ class _DashboardPageState extends State<DashboardPage> {
         onTap: _navigateBottomBar,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.group), label: 'Members'),
+          BottomNavigationBarItem(icon: Icon(Icons.percent), label: 'Interest'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile')
         ],
       ),

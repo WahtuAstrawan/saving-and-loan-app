@@ -1,5 +1,5 @@
 import 'package:auth_app/components/button.dart';
-import 'package:auth_app/components/textfield.dart';
+import 'package:auth_app/components/number_textfield.dart';
 import 'package:auth_app/service/get_active_interest.dart';
 import 'package:auth_app/service/add_active_interest.dart';
 import 'package:flutter/material.dart';
@@ -45,41 +45,35 @@ class _InterestPageState extends State<InterestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(''),
-      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: _isLoading
               ? const CircularProgressIndicator()
-              : SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Bunga Anggota',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Bunga Anggota',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(height: 80),
-                      MyTextField(
-                        controller: percentController,
-                        hintText: 'Persentase Bunga Aktif (%)',
-                        obscureText: false,
-                      ),
-                      const SizedBox(height: 25),
-                      MyButton(
-                        onTap: () => {
-                          addActiveInterest(context, percentController.text)
-                        },
-                        buttonText: 'Update Bunga Aktif',
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 80),
+                    NumberTextField(
+                      hintText: 'Persentase Bunga Aktif (%)',
+                      obscureText: false,
+                      controller: percentController,
+                    ),
+                    const SizedBox(height: 25),
+                    MyButton(
+                      onTap: () =>
+                          {addActiveInterest(context, percentController.text)},
+                      buttonText: 'Update Bunga Aktif',
+                    ),
+                  ],
                 ),
         ),
       ),

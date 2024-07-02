@@ -33,9 +33,6 @@ Future<void> addActiveInterest(BuildContext context, String percent) async {
     }
 
     showAlertDialog(context, "Success", "Bunga aktif berhasil diupdate");
-
-    await Future.delayed(const Duration(seconds: 2));
-    Navigator.pushReplacementNamed(context, '/dashboard');
     return;
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! < 500) {

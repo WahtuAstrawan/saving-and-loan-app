@@ -1,6 +1,6 @@
 import 'package:auth_app/pages/add_member_page.dart';
 import 'package:auth_app/pages/dashboard_page.dart';
-import 'package:auth_app/pages/interest_page.dart';
+import 'package:auth_app/pages/interest_history_page.dart';
 import 'package:auth_app/pages/login_page.dart';
 import 'package:auth_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => const DashboardPage(),
         '/register': (context) => const RegisterPage(),
         '/member/add': (context) => const AddMemberPage(),
-        '/interest': (context) => const InterestPage()
+        '/interest/history': (context) => const InterestHistoryPage()
       },
     );
   }

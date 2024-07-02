@@ -19,7 +19,8 @@ class _AddMemberPageState extends State<AddMemberPage> {
   final TextEditingController phoneNumController = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
-    DateTime initialDate = DateTime.tryParse(birthdayController.text) ?? DateTime.now();
+    DateTime initialDate =
+        DateTime.tryParse(birthdayController.text) ?? DateTime.now();
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: initialDate,
@@ -38,6 +39,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
+        backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
       body: SafeArea(

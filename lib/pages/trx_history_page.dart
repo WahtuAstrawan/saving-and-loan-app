@@ -77,6 +77,7 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Transaksi Anggota'),
+        backgroundColor: Colors.white,
         actions: [
           IconButton(
             icon: const Icon(Icons.addchart),
