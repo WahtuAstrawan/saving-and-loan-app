@@ -3,7 +3,7 @@ import 'package:auth_app/components/show_alert_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:get_storage/get_storage.dart';
 
-Future<String> getMemberBalance(BuildContext context, String memberId) async {
+Future<int> getMemberBalance(BuildContext context, String memberId) async {
   final localStorage = GetStorage();
   final dio = Dio();
   const baseUrl = 'https://mobileapis.manpits.xyz/api';
@@ -16,7 +16,7 @@ Future<String> getMemberBalance(BuildContext context, String memberId) async {
       ),
     );
 
-    return response.data['data']['saldo'].toString();
+    return response.data['data']['saldo'];
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! == 406) {
       showAlertDialog(
@@ -30,6 +30,6 @@ Future<String> getMemberBalance(BuildContext context, String memberId) async {
     } else {
       showAlertDialog(context, "Error", "Internal Server Error");
     }
-    return "";
+    return 0;
   }
 }

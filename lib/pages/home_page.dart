@@ -92,10 +92,32 @@ class _HomePageState extends State<HomePage> {
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 left: 8.0),
-                                            child: Text(
-                                                member['status_aktif'] == 1
-                                                    ? '--- Aktif ---'
-                                                    : '--- Tidak Aktif ---'),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.circle,
+                                                  color:
+                                                      member['status_aktif'] ==
+                                                              1
+                                                          ? Colors.green
+                                                          : Colors.red,
+                                                  size: 6.0,
+                                                ),
+                                                const SizedBox(width: 4.0),
+                                                Text(
+                                                  member['status_aktif'] == 1
+                                                      ? 'Aktif'
+                                                      : 'Tidak Aktif',
+                                                  style: TextStyle(
+                                                    color:
+                                                        member['status_aktif'] ==
+                                                                1
+                                                            ? Colors.green
+                                                            : Colors.red,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(

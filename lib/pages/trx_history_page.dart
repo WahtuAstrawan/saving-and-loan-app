@@ -28,29 +28,38 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
   }
 
   Future<void> _fetchBalance() async {
-    String balance = await getMemberBalance(context, widget.memberId);
     setState(() {
-      _balance = balance;
+      _isLoading = true;
+    });
+    int balance = await getMemberBalance(context, widget.memberId);
+    setState(() {
+      _balance = formatCurrency(balance);
+    });
+    setState(() {
+      _isLoading = false;
     });
   }
 
   Future<void> _fetchTrxType() async {
+    setState(() {
+      _isLoading = true;
+    });
     final trxType = await getTrxType(context);
     _trxType.value = trxType;
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   Future<void> _fetchTrxHistories() async {
     setState(() {
       _isLoading = true;
     });
-    try {
-      final trxHistories = await getAllTrxMember(context, widget.memberId);
-      _trxHistories.value = trxHistories;
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
+    final trxHistories = await getAllTrxMember(context, widget.memberId);
+    _trxHistories.value = trxHistories;
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   String _getTrxTypeName(int id) {
@@ -116,7 +125,7 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Sisa Saldo: ${formatCurrency(int.parse(_balance))}',
+                                    'Sisa Saldo: $_balance',
                                     style: const TextStyle(
                                       fontSize: 18,
                                     ),
@@ -148,14 +157,14 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 10.0),
-                                        child: Text(
-                                            formatCurrency(trxHistory['trx_nominal'])),
+                                        child: Text(formatCurrency(
+                                            trxHistory['trx_nominal'])),
                                       ),
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 10.0),
                                         child: Text(
-                                            '${trxHistory['trx_tanggal']}'),
+                                            '${trxHistory['trx_tanggal']} WITA'),
                                       ),
                                     ],
                                   ),

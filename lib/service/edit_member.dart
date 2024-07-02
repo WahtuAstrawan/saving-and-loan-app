@@ -113,6 +113,14 @@ Future<void> editMember(
     return;
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! < 500) {
+      if (e.response!.statusCode! == 406) {
+        showAlertDialog(
+            context, "Error", "Sesi login Anda telah habis, coba login ulang");
+        localStorage.erase();
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.pushReplacementNamed(context, '/login');
+        return;
+      }
       showAlertDialog(
           context, "Error", "No induk yang Anda edit sudah dipakai");
     } else {

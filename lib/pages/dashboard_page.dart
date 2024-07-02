@@ -46,7 +46,7 @@ class _DashboardPageState extends State<DashboardPage> {
         actions: _selectedPageName == "Members"
             ? [
                 IconButton(
-                  icon: Icon(Icons.bar_chart, color: Colors.white),
+                  icon: Icon(Icons.percent, color: Colors.white),
                   onPressed: () {
                     Navigator.pushNamed(context, '/interest');
                   },

@@ -4,6 +4,10 @@ import "package:auth_app/components/show_alert_dialog.dart";
 import "package:dio/dio.dart";
 import "package:get_storage/get_storage.dart";
 
+String removeCurrencyFormat(String text) {
+  return text.replaceAll('Rp. ', '').replaceAll('.', '');
+}
+
 Future<void> addMemberTrx(BuildContext context, String memberId, String? trxId,
     TextEditingController formTrxNominal) async {
   final localStorage = GetStorage();
@@ -14,6 +18,8 @@ Future<void> addMemberTrx(BuildContext context, String memberId, String? trxId,
     showAlertDialog(context, "Error", "Harap mengisi semua kolom data");
     return;
   }
+
+  formTrxNominal.text = removeCurrencyFormat(formTrxNominal.text);
 
   final onlyNumbers = RegExp(r'^[0-9]+$');
   if (!onlyNumbers.hasMatch(formTrxNominal.text)) {
@@ -44,7 +50,7 @@ Future<void> addMemberTrx(BuildContext context, String memberId, String? trxId,
 
     formTrxNominal.clear();
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
     Navigator.pop(context);
     Navigator.pop(context);
     Navigator.push(
@@ -56,6 +62,14 @@ Future<void> addMemberTrx(BuildContext context, String memberId, String? trxId,
     return;
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! < 500) {
+      if (e.response!.statusCode! == 406) {
+        showAlertDialog(
+            context, "Error", "Sesi login Anda telah habis, coba login ulang");
+        localStorage.erase();
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.pushReplacementNamed(context, '/login');
+        return;
+      }
       showAlertDialog(context, "Error", "Terjadi kesalahan, coba ulangi");
     } else {
       showAlertDialog(context, "Error", "Internal Server Error");

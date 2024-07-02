@@ -1,5 +1,5 @@
 import 'package:auth_app/components/button.dart';
-import 'package:auth_app/components/textfield.dart';
+import 'package:auth_app/components/currency_textfield.dart';
 import 'package:auth_app/service/add_member_trx.dart';
 import 'package:auth_app/service/get_trx_type.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,6 @@ class AddMemberTrxPage extends StatefulWidget {
 class _AddMemberTrxPageState extends State<AddMemberTrxPage> {
   String? trxId;
   final TextEditingController trxNominal = TextEditingController();
-
   final _trxType = ValueNotifier<List<Map<String, dynamic>>>([]);
 
   @override
@@ -86,11 +85,10 @@ class _AddMemberTrxPageState extends State<AddMemberTrxPage> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                MyTextField(
-                  controller: trxNominal,
-                  hintText: 'Masukkan Nominal (Rp)',
-                  obscureText: false,
-                ),
+                CurrencyTextField(
+                    hintText: 'Masukkan Nominal (Rp)',
+                    obscureText: false,
+                    controller: trxNominal),
                 const SizedBox(height: 25),
                 MyButton(
                   onTap: () => {

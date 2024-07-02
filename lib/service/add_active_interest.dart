@@ -39,6 +39,14 @@ Future<void> addActiveInterest(BuildContext context, String percent) async {
     return;
   } on DioException catch (e) {
     if (e.response != null && e.response!.statusCode! < 500) {
+      if (e.response!.statusCode! == 406) {
+        showAlertDialog(
+            context, "Error", "Sesi login Anda telah habis, coba login ulang");
+        localStorage.erase();
+        await Future.delayed(const Duration(seconds: 2));
+        Navigator.pushReplacementNamed(context, '/login');
+        return;
+      }
       showAlertDialog(context, "Error", "Terjadi kesalahan, coba ulangi");
     } else {
       showAlertDialog(context, "Error", "Internal Server Error");
