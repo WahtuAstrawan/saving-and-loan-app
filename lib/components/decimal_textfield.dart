@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class NumberTextField extends StatelessWidget {
+class DecimalTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final TextEditingController controller;
 
-  const NumberTextField({
+  const DecimalTextField({
     super.key,
     required this.hintText,
     required this.obscureText,
@@ -20,9 +20,9 @@ class NumberTextField extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: obscureText,
-        keyboardType: TextInputType.number,
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
         inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly,
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9.]')),
         ],
         decoration: InputDecoration(
           labelText: hintText,

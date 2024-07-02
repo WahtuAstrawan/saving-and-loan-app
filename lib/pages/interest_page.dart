@@ -1,5 +1,5 @@
 import 'package:auth_app/components/button.dart';
-import 'package:auth_app/components/number_textfield.dart';
+import 'package:auth_app/components/decimal_textfield.dart';
 import 'package:auth_app/service/get_active_interest.dart';
 import 'package:auth_app/service/add_active_interest.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +62,7 @@ class _InterestPageState extends State<InterestPage> {
                       ),
                     ),
                     const SizedBox(height: 80),
-                    NumberTextField(
+                    DecimalTextField(
                       hintText: 'Persentase Bunga Aktif (%)',
                       obscureText: false,
                       controller: percentController,

@@ -1,4 +1,5 @@
 import 'package:auth_app/components/button.dart';
+import 'package:auth_app/components/number_textfield.dart';
 import 'package:auth_app/components/textfield.dart';
 import 'package:auth_app/service/add_member.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
                   ),
                 ),
                 const SizedBox(height: 50),
-                MyTextField(
+                NumberTextField(
                   controller: registerNumController,
                   hintText: 'No Induk',
                   obscureText: false,
@@ -99,7 +100,7 @@ class _AddMemberPageState extends State<AddMemberPage> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                MyTextField(
+                NumberTextField(
                   controller: phoneNumController,
                   hintText: 'No Telepon',
                   obscureText: false,
