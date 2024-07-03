@@ -1,3 +1,4 @@
+import "package:auth_app/components/show_confirm_dialog.dart";
 import "package:auth_app/pages/trx_history_page.dart";
 import 'package:flutter/material.dart';
 import "package:auth_app/components/show_alert_dialog.dart";
@@ -14,66 +15,70 @@ Future<void> addMemberTrx(BuildContext context, String memberId, String? trxId,
   final dio = Dio();
   const baseUrl = 'https://mobileapis.manpits.xyz/api';
 
-  if (formTrxNominal.text.isEmpty || (trxId == null || trxId == "")) {
-    showAlertDialog(context, "Error", "Harap mengisi semua kolom data");
-    return;
-  }
-
-  formTrxNominal.text = removeCurrencyFormat(formTrxNominal.text);
-
-  final onlyNumbers = RegExp(r'^[0-9]+$');
-  if (!onlyNumbers.hasMatch(formTrxNominal.text)) {
-    showAlertDialog(context, "Error",
-        "Masukkan nominal dengan benar (Hanya angka dalam bentuk rupiah)");
-    formTrxNominal.clear();
-    return;
-  }
-
-  try {
-    final response = await dio.post('$baseUrl/tabungan',
-        data: {
-          'anggota_id': memberId,
-          'trx_id': trxId,
-          'trx_nominal': formTrxNominal.text
-        },
-        options: Options(
-          headers: {'Authorization': 'Bearer ${localStorage.read('token')}'},
-        ));
-
-    if (!response.data['success']) {
-      showAlertDialog(context, "Error", response.data['message']);
+  showConfirmDialog(context, "Warning",
+      "Apakah anda yakin melakukan transaksi dengan Nominal ${formTrxNominal.text}?",
+      () async {
+    if (formTrxNominal.text.isEmpty || (trxId == null || trxId == "")) {
+      showAlertDialog(context, "Error", "Harap mengisi semua kolom data");
       return;
     }
 
-    showAlertDialog(
-        context, "Success", "Transaksi member berhasil ditambahkan");
+    formTrxNominal.text = removeCurrencyFormat(formTrxNominal.text);
 
-    formTrxNominal.clear();
+    final onlyNumbers = RegExp(r'^[0-9]+$');
+    if (!onlyNumbers.hasMatch(formTrxNominal.text)) {
+      showAlertDialog(context, "Error",
+          "Masukkan nominal dengan benar (Hanya angka dalam bentuk rupiah)");
+      formTrxNominal.clear();
+      return;
+    }
 
-    await Future.delayed(const Duration(seconds: 3));
-    Navigator.pop(context);
-    Navigator.pop(context);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => TrxHistoryPage(
-                  memberId: memberId,
-                )));
-    return;
-  } on DioException catch (e) {
-    if (e.response != null && e.response!.statusCode! < 500) {
-      if (e.response!.statusCode! == 406) {
-        showAlertDialog(
-            context, "Error", "Sesi login Anda telah habis, coba login ulang");
-        localStorage.erase();
-        await Future.delayed(const Duration(seconds: 2));
-        Navigator.pushReplacementNamed(context, '/login');
+    try {
+      final response = await dio.post('$baseUrl/tabungan',
+          data: {
+            'anggota_id': memberId,
+            'trx_id': trxId,
+            'trx_nominal': formTrxNominal.text
+          },
+          options: Options(
+            headers: {'Authorization': 'Bearer ${localStorage.read('token')}'},
+          ));
+
+      if (!response.data['success']) {
+        showAlertDialog(context, "Error", response.data['message']);
         return;
       }
-      showAlertDialog(context, "Error", "Terjadi kesalahan, coba ulangi");
-    } else {
-      showAlertDialog(context, "Error", "Internal Server Error");
+
+      showAlertDialog(
+          context, "Success", "Transaksi member berhasil ditambahkan");
+
+      formTrxNominal.clear();
+
+      await Future.delayed(const Duration(seconds: 3));
+      Navigator.pop(context);
+      Navigator.pop(context);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TrxHistoryPage(
+                    memberId: memberId,
+                  )));
+      return;
+    } on DioException catch (e) {
+      if (e.response != null && e.response!.statusCode! < 500) {
+        if (e.response!.statusCode! == 406) {
+          showAlertDialog(context, "Error",
+              "Sesi login Anda telah habis, coba login ulang");
+          localStorage.erase();
+          await Future.delayed(const Duration(seconds: 2));
+          Navigator.pushReplacementNamed(context, '/login');
+          return;
+        }
+        showAlertDialog(context, "Error", "Terjadi kesalahan, coba ulangi");
+      } else {
+        showAlertDialog(context, "Error", "Internal Server Error");
+      }
+      return;
     }
-    return;
-  }
+  });
 }

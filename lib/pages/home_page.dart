@@ -92,6 +92,16 @@ class _HomePageState extends State<HomePage> {
                                           Padding(
                                             padding: const EdgeInsets.only(
                                                 left: 8.0),
+                                            child: Text(
+                                              '${member['id']}',
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8.0),
                                             child: Row(
                                               children: [
                                                 Icon(

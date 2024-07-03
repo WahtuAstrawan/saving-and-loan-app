@@ -76,7 +76,8 @@ class _TrxHistoryPageState extends State<TrxHistoryPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Transaksi Anggota'),
+        title:
+            Text('Transaksi Anggota Dengan ID: ${widget.memberId.toString()}'),
         backgroundColor: Colors.white,
         actions: [
           IconButton(
